@@ -48,7 +48,7 @@ export const Register = () => {
 })
 
 const handleSubmit = async(values) => {
-  values.FE_URL="http://localhost:3000"
+  values.FE_URL="https://coruscating-sfogliatella-cd2b20.netlify.app/"
   const response = await Axios.post("https://minpro-blog.purwadhikabootcamp.com/api/auth/", values)
   try {
     console.log(values);

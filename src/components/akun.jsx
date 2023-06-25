@@ -6,12 +6,14 @@ import { setValue } from "../redux/userSlice";
 
 import  Axios from "axios"
 import { useEffect } from "react";
+import { SetAvatar } from "./avatar";
 
 export const Akun = () => {
     const data = useSelector((state) => state.user.value)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const token = localStorage.getItem('token')
+
     const onLogout = () =>{
         localStorage.removeItem('token')
         navigate('/')
@@ -52,13 +54,16 @@ export const Akun = () => {
             </Heading>
         <Flex  p={5}  mt={15} gap={5}>
         <Box  w={"30%"} bg={"white"} borderRadius={"5px"} h={'fit-content'}>
-        <Flex  alignItems={"center"} mt={5} justifyContent={"center"} gap={5} p={4}>
-        <Avatar src='https://bit.ly/broken-link' size={"xl"} />
+        <Stack alignItems={"center"} mt={5} justifyContent={"center"} gap={5} p={4}>
+        <SetAvatar
+                  
+                
+                />
         <Text noOfLines={2} fontSize= {{sm: "xl", md: "2xl",lg: "3xl"}} textAlign={"center"}>{data.username} </Text>
-        </Flex>
-        <Box>
-        <Text noOfLines={2} fontSize= {{sm: "xl", md: "2xl",lg: "3xl"}} textAlign={"center"}>{data.email} </Text>
-        <Text noOfLines={2} fontSize= {{sm: "xl", md: "2xl",lg: "3xl"}} textAlign={"center"}>{data.phone} </Text>
+        </Stack>
+                        <Box>
+        <Text noOfLines={2} fontSize= {{sm: "xl", md: "xl",lg: "2xl"}} textAlign={"center"}>{data.email} </Text>
+        <Text noOfLines={2} fontSize= {{sm: "xl", md: "xl",lg: "2xl"}} textAlign={"center"}>{data.phone} </Text>
         </Box>
         <Stack w={"100%"}  spacing={5} p={3} >
         <NavLink to={"profil"}>

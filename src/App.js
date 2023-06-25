@@ -25,6 +25,7 @@ import { setValue } from "./redux/userSlice";
 import { useEffect } from "react";
 import { ResetPass } from "./pages/perloginan/resetPass";
 import { Blog } from "./pages/blog";
+import {ArticlePagination} from "./components/pagination"
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
       {path: "Internasional",element:<Internasional/>},
       {path: "Fiksi",element:<Fiksi/>},
       {path: "blog/:id",element:<Blog/>},
+      {path: "pagination",element:<ArticlePagination/>},
       {path: "Akun", element:<Akun/>,children:[
         {path: "Profil", element: <Profil/>},
         {path: "Artikel-Suka", element: <Suka/>},
@@ -68,8 +70,8 @@ function App() {
           Authorization : `Bearer ${token}`
         }
       })
-      const {username, email, phone, imgprofil}=res.data
-       dispatch(setValue({username, email, phone, imgprofil}))
+      const {username, email, phone, imgProfile}=res.data
+       dispatch(setValue({username, email, phone, imgProfile}))
        
 
         

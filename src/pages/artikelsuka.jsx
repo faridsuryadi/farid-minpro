@@ -1,4 +1,5 @@
 import { Box, Heading } from "@chakra-ui/react"
+import { LikedArticles } from "../components/listsuka"
 
 export const Suka = () => {
   return(
@@ -6,6 +7,7 @@ export const Suka = () => {
             <Heading>
                 Artikel Disukai
             </Heading>
+            <LikedArticles/>
     </Box>
   )  
 } 

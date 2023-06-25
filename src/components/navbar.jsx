@@ -4,10 +4,12 @@ import{BrowserRouter, NavLink,Outlet, Router}from "react-router-dom"
 import { Menu } from "./menu"
 import { Footer } from "./footer"
 import { useSelector } from "react-redux"
+import { Searchbar } from "./searchbar"
+import { useState } from "react"
 
 
 export const Navbar = () => {
-    
+    const [results, setResults] =useState([])
     const token = localStorage.getItem('token')
     const data = useSelector((state) => state.user.value)
     return(
@@ -15,21 +17,14 @@ export const Navbar = () => {
        
         <Center>
 
-       <Box  bg={"white"} marginBottom={"20px"} w={"80%"}  zIndex={2}>
+       <Box  bg={"white"} marginBottom={"20px"} w={"100%"} zIndex={2}>
 
-        <Flex as="nav"  alignItems="center" gap="10px" position={"fixed"} w={"80%"} bg={"blue.700"} minH={"70px"}>
+        <Flex as="nav"  alignItems="center" gap="10px" position={"fixed"} w={"100%"} bg={"blue.700"} minH={"70px"}>
          
          <Menu></Menu>
 
         <Spacer/>
-         <InputGroup  w={"50%"}>
-                        <Input variant='outline' placeholder='Cari Berita' w={"100%"}  _placeholder={{color : "white"}}  color={"white"}/>
-                        <InputRightElement width='4.5rem'>
-                         <Button ml={"30px"} h='1.75rem' size='sm' bg={"transparent"} color={"gray"}>
-                        <SearchIcon color={"white"}/>
-                         </Button>
-                         </InputRightElement>
-                        </InputGroup>
+            <Searchbar />
         <Spacer/>
            {token ?(
             <>

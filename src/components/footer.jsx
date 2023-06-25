@@ -9,7 +9,7 @@ export const Footer = () => {
      <Box
       bg={"blue.700"}
       color={"black"}
-      w={"80%"}
+      w={"100%"}
       bottom={0}
       >
           

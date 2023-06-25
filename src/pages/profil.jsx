@@ -17,6 +17,9 @@ import { ErrorMessage, Field, Formik } from "formik"
 import * as Yup from 'yup'
 import  Axios  from "axios"
 import { NewEmail } from "../components/newEmail"
+import { NewUser } from "../components/newUser"
+import { NewPhone } from "../components/newPhone"
+import { SetAvatar } from "../components/avatar"
 
 
 export const Profil = () => {
@@ -61,6 +64,8 @@ export const Profil = () => {
             <HStack>
              
             <NewEmail/>
+            <NewUser/>
+            <NewPhone/>
 
               {/* <Formik>
               <Box w={"33%"}  h={"250px"} bg={"gray.100"}>
@@ -92,7 +97,9 @@ export const Profil = () => {
               </Box>
               </Formik> */}
             </HStack>
+          
 
+    
         <NavLink to={"/newpass"}>  
         <Button mt={8}>Ubah Password</Button>
         </NavLink>

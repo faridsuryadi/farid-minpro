@@ -40,6 +40,7 @@ export const ResetPass = () => {
   });
   const handleSubmit = async (data) => {
     try {
+      data.FE_URL="https://coruscating-sfogliatella-cd2b20.netlify.app/"
       const response = await Axios.patch(
         "https://minpro-blog.purwadhikabootcamp.com/api/auth/resetPass",
         data,

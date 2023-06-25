@@ -6,6 +6,7 @@ const initialValue = {
         email:"",
         phone:"",
         password:"",
+        imgProfile:"",
     }
 }
 

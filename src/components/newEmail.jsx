@@ -1,68 +1,111 @@
-import { Box, Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react"
-import  Axios  from "axios"
-import { ErrorMessage, Field, Formik } from "formik"
-import { useSelector } from "react-redux"
-import { Form } from "react-router-dom"
-import * as Yup from 'yup'
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  Button,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 
-export const NewEmail = ()=> {
-    const data = useSelector((state) => state.user.value)
-    const token = localStorage.getItem('token')
+import { useSelector } from "react-redux";
+import * as Yup from "yup";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-    const emailSchema = Yup.object().shape({
-        newEmail : Yup.string()
-        .notOneOf([Yup.ref("currentEmail")], "Email tidak boleh sama")
-        .required("Password dibutuhkan"),
-        currentEmail: Yup.string()
-        .required("Email dibutuhkan"),
-    })
+export const NewEmail = () => {
+  const data = useSelector((state) => state.user.value);
+  const token = localStorage.getItem("token");
+  console.log(data);
 
-    const handleSubmit = async() => {
-        try {
-          const response = await Axios.patch("https://minpro-blog.purwadhikabootcamp.com/api/auth/changeEmail",{},{
-              headers: {Authorization: `Bearer ${token}`}
-    
-            })
-            console.log(response);
-      } catch (error) {
+  const navigate = useNavigate();
+  const onChangeIt = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const handleSubmit = async (data) => {
+    try {
+      data.FE_URL = "https://coruscating-sfogliatella-cd2b20.netlify.app/";
+      const response = await Axios.patch(
+        "https://minpro-blog.purwadhikabootcamp.com/api/auth/changeEmail",
+        data,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(data);
+      console.log(response);
+    } catch (error) {}
+  };
+
+  const ChangeEmailSchema = Yup.object().shape({
+    currentEmail: Yup.string().required("Email is required"),
+
+    newEmail: Yup.string().required("New Email is required"),
+  });
+  return (
+    <Formik
+      initialValues={{
+        currentEmail: "",
+        newEmail: "",
+      }}
+      validationSchema={ChangeEmailSchema}
+      onSubmit={(value, action) => {
+        console.log(value);
+        handleSubmit(value);
+      }}
+    >
+      {(props) => {
+        return (
           
-      }
-      }
+        <Box as={Form} w={"33%"}  h={"250px"} bg={"gray.100"} p={5}>            
+        <Text as={"b"} textAlign={"center"}>Edit Email</Text>
+            <Stack spacing={4} w={"80%"} p={5} mx={"auto"}>
+              <FormControl>
+                
+                <ErrorMessage
+                  component="div"
+                  name="currentEmail"
+                  style={{ color: "red" }}
+                />
+                <Input as={Field} name="currentEmail" placeholder="Email saat ini" />
+              </FormControl>
 
-    return(
-
-        <Formik
-        onSubmit={(values) => {
-          handleSubmit(values);
-        
-        }}
-        initialValues={{currentEmail:'',newEmail:'' }}
-        validationSchema={emailSchema}
-        >
-    <Box as={Form} w={"33%"}  h={"250px"} bg={"gray.100"}>
-      <FormLabel fontSize={"2xl"} mt={3} mb={3}textAlign={"center"}>Email</FormLabel>
-
-        <FormControl>
-      <Input as={Field} name="currentEmail" value={data.email} w={"80%"} mb={5}/>
-      <ErrorMessage
-        component="div"
-        name="currentEmail"
-        style={{color:"red"}}/>
-        </FormControl>
-
-      <Stack textAlign={"center"}>
-    <FormControl>
-      <Input as={Field} name="newEmail" placeholder="Email Baru" w={"80%"}/>
-      <ErrorMessage
-      component="div"
-      name="newEmail"
-      ttyle={{color:"red"}}/>
-    </FormControl>
-      </Stack>
-      <Button type={"submit"}  mt={5}>
-        Ubah
-      </Button>
-    </Box>
+              <FormControl justifyContent={"center"}>
+             
+                <ErrorMessage
+                  component="div"
+                  name="newEmail"
+                  style={{ color: "red" }}
+                />
+                <Input as={Field} name="newEmail" placeholder="Email baru" />
+              </FormControl>
+              
+                <Button
+                mx={"auto"}
+                w={"70%"}
+                  isDisabled={!props.dirty}
+                  onClick={onChangeIt}
+                  type={"submit"}
+                  loadingText="Submitting"
+                  size="lg"
+                  bg={"gray.500"}
+                  color={"white"}
+                  _hover={{
+                    bg: "gray",
+                  }}
+                >
+                  Ubah
+                </Button>
+              
+            </Stack>
+          </Box>
+        );
+      }}
     </Formik>
-        )
-}
+  );
+};
+      {/* <Box as={Form} w={"33%"}  h={"250px"} bg={"gray.100"}> */}

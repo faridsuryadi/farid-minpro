@@ -2,6 +2,7 @@ import { Box, Center, Heading, Image, Stack, Text } from "@chakra-ui/react"
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { LikeButton } from "../components/like";
 
 export const Blog = () => {
     const [data, setData] = useState();
@@ -33,6 +34,7 @@ export const Blog = () => {
               />
               </Box>
               <Heading>{data?.title}</Heading>
+              <LikeButton/>
               <Text>{data?.content}</Text>
               </Stack>
               </Box>

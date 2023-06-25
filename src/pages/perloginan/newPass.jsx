@@ -17,13 +17,14 @@ import {
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import  Axios  from 'axios';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { Form, Formik, Field, ErrorMessage} from "formik"
 
   export  const NewPass = ()=> {
     const token = localStorage.getItem('token')
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate()
     const handleSubmit =  async (data)=>{
       try {
           const response = await Axios.patch("https://minpro-blog.purwadhikabootcamp.com/api/auth/changePass",data,{
@@ -60,7 +61,8 @@ import { Form, Formik, Field, ErrorMessage} from "formik"
       <Formik
       onSubmit={(values) => {
         handleSubmit(values);
-      
+        navigate("/")
+        localStorage.removeItem('token')
       }}
       initialValues={{currentPassword:"",password:"", confirmPassword:""}}
       validationSchema={newPassSchema}

@@ -1,12 +1,12 @@
 import { Box, Button, Center, HStack, Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react"
 import Axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const Myblog = () => {
     const [data, setData] = useState();
     const token = localStorage.getItem('token')
-    
+    const navigate = useNavigate()
     const getDetail = async () => {
       try {
         const response = await Axios.get(
@@ -22,6 +22,9 @@ export const Myblog = () => {
         console.log(err);
       }
     };
+    const handleClick = (id) => {
+      navigate(`/blog/${id}`)
+    }
     console.log(data);
     useEffect(() => {
       getDetail();
@@ -46,15 +49,15 @@ export const Myblog = () => {
   
 
     return(
-        <Box p={"5px"} spacing={5} minChildWidth={"200px"} textAlign={"center"} mt={3}  justifyContent={"center"}h={"fit-content"}>
+        <Box p={"5px"} spacing={5} minChildWidth={"200px"} textAlign={"center"} mt={3}  justifyContent={"center"}>
         {data?.map((item,index) =>(
-            <Box key={index}>
-              <HStack  bg={"white"} h={"150px"} border={"1px"}solid alignItems={"center"}>
-                <Box boxSize={"150px"}>
+            <Box key={index} h={"fit-content"}>
+              <HStack  bg={"white"} h={"150px"}  alignItems={"center"}>
+                <Box boxSize={"150px"} onClick={()=>handleClick(item.id)}>
               <Image  objectFit={"cover"}  src={`https://minpro-blog.purwadhikabootcamp.com/${item.imageURL}`}>
               </Image>
                 </Box>
-                  <Text>{item.title}</Text>
+                  <Text as={"b"}>{item.title}</Text>
                   {/* {item} */}
               </HStack>
               <Button onClick={()=>handleDelete(item.id)}>
