@@ -38,7 +38,10 @@ export const Carousel = () => {
     <Box>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper" slidesPerView={2} >
         {blog?.map((item,index)=>{
+                    const createdAt = new Date(item.createdAt).toLocaleDateString('en-US');
+
           return (
+            
             <SwiperSlide key = {index}
             onClick={()=>handleClick(item.id)}>
                 <Stack>
@@ -49,7 +52,7 @@ export const Carousel = () => {
                 </Image>
                 <Heading alignItems={"center"}> {item.title}</Heading>
                 <Text fontSize={"20px"}>{item.User.username}</Text>
-                <Text fontSize={"1rem"}>{item.createdAt}</Text>
+                <Text fontSize={"1rem"}>{createdAt}</Text>
                 
                 </Stack>
               

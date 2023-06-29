@@ -22,10 +22,12 @@ export const Blog = () => {
     useEffect(() => {
       getDetail();
     }, []);
+    
+    // const createdAt = new Date(data.createdAt).toLocaleDateString('en-US');
     return(
-        <Center>
+      <Center>
             
-        <Box w={"80%"} mt={20} border={"2px"} bg={"white"} >
+        <Box w={"80%"} mt={20}  bg={"white"} >
             <Stack>
 
           <Box alignSelf={"center"}>
@@ -34,8 +36,9 @@ export const Blog = () => {
               />
               </Box>
               <Heading>{data?.title}</Heading>
-              <LikeButton/>
+              
               <Text>{data?.content}</Text>
+              <LikeButton/>
               </Stack>
               </Box>
         </Center>
